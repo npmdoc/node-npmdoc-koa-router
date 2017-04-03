@@ -1,17 +1,40 @@
 {
-    "buildNpmdoc":"koa-router",
+    "author": "kai zhu <kaizhu256@gmail.com>",
+    "buildNpmdoc": "koa-router",
+    "description": "api documentation for [koa-router (v7.1.1)](https://github.com/alexmingoia/koa-router#readme) [![npm package](https://img.shields.io/npm/v/npmdoc-koa-router.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-koa-router) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-koa-router.svg)](https://travis-ci.org/npmdoc/node-npmdoc-koa-router)",
     "devDependencies": {
-        "koa-router": "*",
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
+        "koa-router": "*",
         "utility2": "kaizhu256/node-utility2#alpha"
     },
-    "name":"npmdoc-koa-router",
+    "engines": {
+        "node": ">=4.0"
+    },
+    "homepage": "https://github.com/npmdoc/node-npmdoc-koa-router",
+    "keywords": [
+        "documentation",
+        "koa-router"
+    ],
+    "license": "MIT",
+    "main": "lib.npmdoc_koa_router.js",
+    "name": "npmdoc-koa-router",
+    "nameAlias": "npmdoc_koa_router",
+    "nameOriginal": "npmdoc-koa-router",
+    "os": [
+        "darwin",
+        "linux"
+    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/npmdoc/node-npmdoc-koa-router.git"
     },
     "scripts": {
-        "build-ci": "utility2 shReadmeTest build_ci.sh"
+        "build-ci": "utility2 shReadmeTest build_ci.sh",
+        "env": "env",
+        "heroku-postbuild": "(set -e; npm install \"kaizhu256/node-utility2#alpha\"; utility2 shDeployHeroku)",
+        "postinstall": "if [ -f npm_scripts.sh ]; then ./npm_scripts.sh postinstall; fi",
+        "start": "(set -e; export PORT=${PORT:-8080}; utility2 start test.js)",
+        "test": "(set -e; export PORT=$(utility2 shServerPortRandom); utility2 test test.js)"
     },
     "version": "0.0.1"
 }
