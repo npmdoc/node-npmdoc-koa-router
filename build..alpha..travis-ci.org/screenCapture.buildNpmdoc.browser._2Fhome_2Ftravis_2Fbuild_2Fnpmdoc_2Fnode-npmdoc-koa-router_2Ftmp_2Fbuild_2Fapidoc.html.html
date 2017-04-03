@@ -1,0 +1,501 @@
+<html><head></head><body><div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a href="https://github.com/alexmingoia/koa-router#readme">koa-router (v7.1.1)</a>
+</h1>
+<h4>Router middleware for koa. Provides RESTful resource routing.</h4>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.koa-router">module koa-router</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.koa-router.layer">
+            function <span class="apidocSignatureSpan">koa-router.</span>layer
+            <span class="apidocSignatureSpan">(path, methods, middleware, opts)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.koa-router.url">
+            function <span class="apidocSignatureSpan">koa-router.</span>url
+            <span class="apidocSignatureSpan">(path, params)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">koa-router.</span>layer.prototype</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.koa-router.layer">module koa-router.layer</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.koa-router.layer.layer">
+            function <span class="apidocSignatureSpan">koa-router.</span>layer
+            <span class="apidocSignatureSpan">(path, methods, middleware, opts)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.koa-router.layer.prototype">module koa-router.layer.prototype</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.koa-router.layer.prototype.captures">
+            function <span class="apidocSignatureSpan">koa-router.layer.prototype.</span>captures
+            <span class="apidocSignatureSpan">(path)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.koa-router.layer.prototype.match">
+            function <span class="apidocSignatureSpan">koa-router.layer.prototype.</span>match
+            <span class="apidocSignatureSpan">(path)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.koa-router.layer.prototype.param">
+            function <span class="apidocSignatureSpan">koa-router.layer.prototype.</span>param
+            <span class="apidocSignatureSpan">(param, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.koa-router.layer.prototype.params">
+            function <span class="apidocSignatureSpan">koa-router.layer.prototype.</span>params
+            <span class="apidocSignatureSpan">(path, captures, existingParams)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.koa-router.layer.prototype.setPrefix">
+            function <span class="apidocSignatureSpan">koa-router.layer.prototype.</span>setPrefix
+            <span class="apidocSignatureSpan">(prefix)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.koa-router.layer.prototype.url">
+            function <span class="apidocSignatureSpan">koa-router.layer.prototype.</span>url
+            <span class="apidocSignatureSpan">(params)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.koa-router" id="apidoc.module.koa-router">module koa-router</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.koa-router.layer" id="apidoc.element.koa-router.layer">
+        function <span class="apidocSignatureSpan">koa-router.</span>layer
+        <span class="apidocSignatureSpan">(path, methods, middleware, opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Layer(path, methods, middleware, opts) {
+  this.opts = opts || {};
+  this.name = this.opts.name || null;
+  this.methods = [];
+  this.paramNames = [];
+  this.stack = Array.isArray(middleware) ? middleware : [middleware];
+
+  methods.forEach(function(method) {
+    var l = this.methods.push(method.toUpperCase());
+    if (this.methods[l-1] === 'GET') {
+      this.methods.unshift('HEAD');
+    }
+  }, this);
+
+  // ensure middleware is a function
+  this.stack.forEach(function(fn) {
+    var type = (typeof fn);
+    if (type !== 'function') {
+      throw new Error(
+        methods.toString() + " `" + (this.opts.name || path) +"`: `middleware` "
+        + "must be a function, not `" + type + "`"
+      );
+    }
+  }, this);
+
+  this.path = path;
+  this.regexp = pathToRegExp(path, this.paramNames, this.opts);
+
+  debug('defined route %s %s', this.methods, this.opts.prefix + this.path);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.koa-router.url" id="apidoc.element.koa-router.url">
+        function <span class="apidocSignatureSpan">koa-router.</span>url
+        <span class="apidocSignatureSpan">(path, params)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">url = function (path, params) {
+    return Layer.prototype.url.call({path: path}, params);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      * [.get|put|post|patch|delete](#module_koa-router--Router+get|put|post|patch|delete) â‡’ &lt;code&gt;Router&lt;/code&amp;#
+x3e;
+      * [.routes](#module_koa-router--Router+routes) â‡’ &lt;code&gt;function&lt;/code&gt;
+      * [.use([path], middleware, [...])](#module_koa-router--Router+use) â‡’ &lt;code&gt;Router&lt;/code&gt;
+      * [.prefix(prefix)](#module_koa-router--Router+prefix) â‡’ &lt;code&gt;Router&lt;/code&gt;
+      * [.allowedMethods([options])](#module_koa-router--Router+allowedMethods) â‡’ &lt;code&gt;function&lt;/code&gt;
+      * [.redirect(source, destination, code)](#module_koa-router--Router+redirect) â‡’ &lt;code&gt;Router&lt;/code&gt;
+      * [.route(name)](#module_koa-router--Router+route) â‡’ &lt;code&gt;Layer&lt;/code&gt; &amp;#124; &lt;code&gt;false
+&lt;/code&gt;
+      * [.<span class="apidocCodeKeywordSpan">url</span>(name, params)](#module_koa-router--Router+url) â‡’ &lt;code&gt;String
+&lt;/code&gt; &amp;#124; &lt;code&gt;Error&lt;/code&gt;
+      * [.param(param, middleware)](#module_koa-router--Router+param) â‡’ &lt;code&gt;Router&lt;/code&gt;
+    * _static_
+      * [.url(path, params)](#module_koa-router--Router.url) â‡’ &lt;code&gt;String&lt;/code&gt;
+
+&lt;a name="exp_module_koa-router--Router"&gt;&lt;/a&gt;
+### Router â
+**Kind**: Exported class
+...</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.koa-router.layer" id="apidoc.module.koa-router.layer">module koa-router.layer</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.koa-router.layer.layer" id="apidoc.element.koa-router.layer.layer">
+        function <span class="apidocSignatureSpan">koa-router.</span>layer
+        <span class="apidocSignatureSpan">(path, methods, middleware, opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Layer(path, methods, middleware, opts) {
+  this.opts = opts || {};
+  this.name = this.opts.name || null;
+  this.methods = [];
+  this.paramNames = [];
+  this.stack = Array.isArray(middleware) ? middleware : [middleware];
+
+  methods.forEach(function(method) {
+    var l = this.methods.push(method.toUpperCase());
+    if (this.methods[l-1] === 'GET') {
+      this.methods.unshift('HEAD');
+    }
+  }, this);
+
+  // ensure middleware is a function
+  this.stack.forEach(function(fn) {
+    var type = (typeof fn);
+    if (type !== 'function') {
+      throw new Error(
+        methods.toString() + " `" + (this.opts.name || path) +"`: `middleware` "
+        + "must be a function, not `" + type + "`"
+      );
+    }
+  }, this);
+
+  this.path = path;
+  this.regexp = pathToRegExp(path, this.paramNames, this.opts);
+
+  debug('defined route %s %s', this.methods, this.opts.prefix + this.path);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.koa-router.layer.prototype" id="apidoc.module.koa-router.layer.prototype">module koa-router.layer.prototype</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.koa-router.layer.prototype.captures" id="apidoc.element.koa-router.layer.prototype.captures">
+        function <span class="apidocSignatureSpan">koa-router.layer.prototype.</span>captures
+        <span class="apidocSignatureSpan">(path)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">captures = function (path) {
+  if (this.opts.ignoreCaptures) return [];
+  return path.match(this.regexp).slice(1);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.koa-router.layer.prototype.match" id="apidoc.element.koa-router.layer.prototype.match">
+        function <span class="apidocSignatureSpan">koa-router.layer.prototype.</span>match
+        <span class="apidocSignatureSpan">(path)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">match = function (path) {
+  return this.regexp.test(path);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+* @param {String} path
+* @returns {Array.&lt;String&gt;}
+* @private
+*/
+
+Layer.prototype.captures = function (path) {
+ if (this.opts.ignoreCaptures) return [];
+ return path.<span class="apidocCodeKeywordSpan">match</span>(this.regexp).slice(1);
+};
+
+/**
+* Generate URL for route using given `params`.
+*
+* @example
+*
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.koa-router.layer.prototype.param" id="apidoc.element.koa-router.layer.prototype.param">
+        function <span class="apidocSignatureSpan">koa-router.layer.prototype.</span>param
+        <span class="apidocSignatureSpan">(param, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">param = function (param, fn) {
+  var stack = this.stack;
+  var params = this.paramNames;
+  var middleware = function (ctx, next) {
+    return fn.call(this, ctx.params[param], ctx, next);
+  };
+  middleware.param = param;
+
+  var names = params.map(function (p) {
+    return p.name;
+  });
+
+  var x = names.indexOf(param);
+  if (x &gt; -1) {
+    // iterate through the stack, to figure out where to place the handler fn
+    stack.some(function (fn, i) {
+      // param handlers are always first, so when we find an fn w/o a param property, stop here
+      // if the param handler at this part of the stack comes after the one we are adding, stop here
+      if (!fn.param || names.indexOf(fn.param) &gt; x) {
+        // inject this param handler right before the current item
+        stack.splice(i, 0, middleware);
+        return true; // then break the loop
+      }
+    });
+  }
+
+  return this;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      * [.routes](#module_koa-router--Router+routes) â‡’ &lt;code&gt;function&lt;/code&gt;
+      * [.use([path], middleware, [...])](#module_koa-router--Router+use) â‡’ &lt;code&gt;Router&lt;/code&gt;
+      * [.prefix(prefix)](#module_koa-router--Router+prefix) â‡’ &lt;code&gt;Router&lt;/code&gt;
+      * [.allowedMethods([options])](#module_koa-router--Router+allowedMethods) â‡’ &lt;code&gt;function&lt;/code&gt;
+      * [.redirect(source, destination, code)](#module_koa-router--Router+redirect) â‡’ &lt;code&gt;Router&lt;/code&gt;
+      * [.route(name)](#module_koa-router--Router+route) â‡’ &lt;code&gt;Layer&lt;/code&gt; &amp;#124; &lt;code&gt;false
+&lt;/code&gt;
+      * [.url(name, params)](#module_koa-router--Router+url) â‡’ &lt;code&gt;String&lt;/code&gt; &amp;#124; &lt;code&gt;
+;Error&lt;/code&gt;
+      * [.<span class="apidocCodeKeywordSpan">param</span>(param, middleware)](#module_koa-router--Router+param) â‡’ &lt;code&gt;
+;Router&lt;/code&gt;
+    * _static_
+      * [.url(path, params)](#module_koa-router--Router.url) â‡’ &lt;code&gt;String&lt;/code&gt;
+
+&lt;a name="exp_module_koa-router--Router"&gt;&lt;/a&gt;
+### Router â
+**Kind**: Exported class
+&lt;a name="new_module_koa-router--Router_new"&gt;&lt;/a&gt;
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.koa-router.layer.prototype.params" id="apidoc.element.koa-router.layer.prototype.params">
+        function <span class="apidocSignatureSpan">koa-router.layer.prototype.</span>params
+        <span class="apidocSignatureSpan">(path, captures, existingParams)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">params = function (path, captures, existingParams) {
+  var params = existingParams || {};
+
+  for (var len = captures.length, i=0; i&lt;len; i++) {
+    if (this.paramNames[i]) {
+      var c = captures[i];
+      params[this.paramNames[i].name] = c ? safeDecodeURIComponent(c) : c;
+    }
+  }
+
+  return params;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.koa-router.layer.prototype.setPrefix" id="apidoc.element.koa-router.layer.prototype.setPrefix">
+        function <span class="apidocSignatureSpan">koa-router.layer.prototype.</span>setPrefix
+        <span class="apidocSignatureSpan">(prefix)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">setPrefix = function (prefix) {
+  if (this.path) {
+    this.path = prefix + this.path;
+    this.paramNames = [];
+    this.regexp = pathToRegExp(this.path, this.paramNames, this.opts);
+  }
+
+  return this;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.koa-router.layer.prototype.url" id="apidoc.element.koa-router.layer.prototype.url">
+        function <span class="apidocSignatureSpan">koa-router.layer.prototype.</span>url
+        <span class="apidocSignatureSpan">(params)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">url = function (params) {
+  var args = params;
+  var url = this.path;
+  var toPath = pathToRegExp.compile(url);
+
+  // argument is of form { key: val }
+  if (typeof params != 'object') {
+    args = Array.prototype.slice.call(arguments);
+  }
+
+  if (args instanceof Array) {
+    var tokens = pathToRegExp.parse(url);
+    var replace = {};
+    for (var len = tokens.length, i=0, j=0; i&lt;len; i++) {
+      if (tokens[i].name) replace[tokens[i].name] = args[j++];
+    }
+    return toPath(replace);
+  }
+  else {
+    return toPath(params);
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      * [.get|put|post|patch|delete](#module_koa-router--Router+get|put|post|patch|delete) â‡’ &lt;code&gt;Router&lt;/code&amp;#
+x3e;
+      * [.routes](#module_koa-router--Router+routes) â‡’ &lt;code&gt;function&lt;/code&gt;
+      * [.use([path], middleware, [...])](#module_koa-router--Router+use) â‡’ &lt;code&gt;Router&lt;/code&gt;
+      * [.prefix(prefix)](#module_koa-router--Router+prefix) â‡’ &lt;code&gt;Router&lt;/code&gt;
+      * [.allowedMethods([options])](#module_koa-router--Router+allowedMethods) â‡’ &lt;code&gt;function&lt;/code&gt;
+      * [.redirect(source, destination, code)](#module_koa-router--Router+redirect) â‡’ &lt;code&gt;Router&lt;/code&gt;
+      * [.route(name)](#module_koa-router--Router+route) â‡’ &lt;code&gt;Layer&lt;/code&gt; &amp;#124; &lt;code&gt;false
+&lt;/code&gt;
+      * [.<span class="apidocCodeKeywordSpan">url</span>(name, params)](#module_koa-router--Router+url) â‡’ &lt;code&gt;String
+&lt;/code&gt; &amp;#124; &lt;code&gt;Error&lt;/code&gt;
+      * [.param(param, middleware)](#module_koa-router--Router+param) â‡’ &lt;code&gt;Router&lt;/code&gt;
+    * _static_
+      * [.url(path, params)](#module_koa-router--Router.url) â‡’ &lt;code&gt;String&lt;/code&gt;
+
+&lt;a name="exp_module_koa-router--Router"&gt;&lt;/a&gt;
+### Router â
+**Kind**: Exported class
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
+</body></html>
