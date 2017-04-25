@@ -5,8 +5,8 @@
 <tspan x="10" y="42"></tspan>
 <tspan x="10" y="58">node_modules</tspan>
 <tspan x="10" y="74">└─┬ koa-router@7.1.1 </tspan>
-<tspan x="10" y="90">  ├─┬ debug@2.6.3 </tspan>
-<tspan x="10" y="106">  │ └── ms@0.7.2 </tspan>
+<tspan x="10" y="90">  ├─┬ debug@2.6.4 </tspan>
+<tspan x="10" y="106">  │ └── ms@0.7.3 </tspan>
 <tspan x="10" y="122">  ├─┬ http-errors@1.6.1 </tspan>
 <tspan x="10" y="138">  │ ├── depd@1.1.0 </tspan>
 <tspan x="10" y="154">  │ ├── inherits@2.0.3 </tspan>
