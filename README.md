@@ -1,6 +1,6 @@
 # npmdoc-koa-router
 
-#### api documentation for  [koa-router (v7.1.1)](https://github.com/alexmingoia/koa-router#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-koa-router.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-koa-router) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-koa-router.svg)](https://travis-ci.org/npmdoc/node-npmdoc-koa-router)
+#### basic api documentation for  [koa-router (v7.1.1)](https://github.com/alexmingoia/koa-router#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-koa-router.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-koa-router) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-koa-router.svg)](https://travis-ci.org/npmdoc/node-npmdoc-koa-router)
 
 #### Router middleware for koa. Provides RESTful resource routing.
 
@@ -81,7 +81,8 @@
         "docs": "NODE_ENV=test node node_modules/gulp/bin/gulp.js docs",
         "test": "NODE_ENV=test node node_modules/gulp/bin/gulp.js test"
     },
-    "version": "7.1.1"
+    "version": "7.1.1",
+    "bin": {}
 }
 ```
 
